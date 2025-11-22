@@ -11,175 +11,168 @@
 <style>
 :root{
   --bg:#fffaf8;
-  --card:#fff;
+  --card:#ffffff;
   --ink:#2b2430;
-  --gold1: #d8a34a;
-  --gold2: #f4c66a;
-  --accent:#e07f3a; /* saffron */
-  --leaf:#2a6f4a;
-  --muted:#7f7483;
-  --shadow: 0 22px 50px rgba(40,30,70,0.08);
+  --coral:#ff7a6b;     /* bright coral */
+  --teal:#31c4a8;      /* bright teal */
+  --lilac:#cfa3ff;     /* bright lilac */
+  --gold:#ffd166;      /* warm gold */
+  --muted:#6f6270;
+  --shadow: 0 28px 60px rgba(40,30,70,0.09);
   --soft: rgba(30,20,50,0.04);
 }
 
-/* subtle batik-like repeating pattern using SVG data image */
+/* page layout */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
 body{
-  margin:0;
-  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family:"Nunito",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
   color:var(--ink);
   background:
-    radial-gradient(circle at 8% 12%, rgba(255,250,246,1) 0%, rgba(255,250,246,0.9) 30%),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><defs><pattern id="p" patternUnits="userSpaceOnUse" width="80" height="80"><g fill="%23efe7f6"><path d="M0 40c20-20 40-20 60 0" stroke="%23efe7f6" stroke-width="6" fill="none"/></g></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') ;
-  background-size:cover;
+    radial-gradient(circle at 8% 14%, #fff7f5 0%, #fffaf8 30%),
+    linear-gradient(180deg, rgba(255,250,245,0.02), rgba(250,250,255,0.01));
   -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  display:flex;align-items:center;justify-content:center;padding:26px;
-  min-height:100vh;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* main card */
+/* card */
 .wrap{
-  width:100%; max-width:1024px; border-radius:18px; padding:26px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,245,0.98));
+  width:100%; max-width:1040px; border-radius:20px; padding:26px 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,254,250,0.99));
   box-shadow:var(--shadow); border:1px solid rgba(40,30,80,0.03);
   position:relative; overflow:hidden;
 }
 
-/* gold foil header strip with batik linework */
+/* header strip (subtle gold waves) */
 .header-strip{
-  position:absolute; left:-10%; right:-10%; top:-50px; height:160px;
-  background-image: linear-gradient(90deg, rgba(45,34,75,0.04), rgba(240,180,90,0.04)), radial-gradient(circle at 70% 30%, rgba(255,240,220,0.35), transparent 40%);
-  clip-path: polygon(0 0, 100% 0, 100% 60%, 0 82%);
+  position:absolute; left:-8%; right:-8%; top:-60px; height:140px;
+  background: radial-gradient(circle at 70% 30%, rgba(255,241,210,0.35), transparent 35%);
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 0 80%);
   pointer-events:none;
   opacity:0.95;
 }
 
-/* top ornament (orchid petals) */
-.orchid{
-  position:absolute; right:12px; top:8px; width:220px; opacity:0.10; transform:rotate(-8deg); pointer-events:none;
-}
-
 /* header */
-.header{display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.header{display:flex;gap:14px;align-items:center;margin-bottom:12px}
 .logo{
-  width:80px;height:80px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#fffaf6,#fff4ee); font-family:"Playfair Display", serif; font-size:34px; color:var(--gold1);
-  box-shadow: inset 0 -10px 24px rgba(0,0,0,0.03)
+  width:84px;height:84px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background: linear-gradient(180deg,#fff8f0,#fff2ea); font-family:"Playfair Display",serif; font-size:36px; color:var(--coral);
+  box-shadow: inset 0 -10px 26px rgba(0,0,0,0.03)
 }
 .title h1{margin:0;font-family:"Playfair Display",serif;font-weight:700;font-size:26px;color:var(--ink)}
 .title p{margin:0;color:var(--muted);font-size:14px}
 
-/* layout grid */
-.grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
-@media (max-width:900px){ .grid{grid-template-columns:1fr} }
+/* layout */
+.grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+@media (max-width:920px){ .grid{grid-template-columns:1fr} }
 
 /* left card */
-.card{background:var(--card);border-radius:14px;padding:18px;border:1px solid rgba(120,100,160,0.02);box-shadow:0 10px 36px var(--soft);position:relative;overflow:visible}
+.card{background:var(--card);border-radius:14px;padding:18px;border:1px solid rgba(120,100,160,0.02);box-shadow:0 12px 34px var(--soft);position:relative}
 .stone-row{display:flex;gap:16px;align-items:flex-start}
-.stone-box{width:150px;height:150px;border-radius:18px;background:linear-gradient(180deg,#fffefc,#fff6f0);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(40,30,60,0.06)}
-.stone-core{width:102px;height:102px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;color:var(--gold1);font-weight:700;font-size:34px;background:linear-gradient(180deg,#fff8f0,#fff0e6);box-shadow:inset 0 -10px 20px rgba(0,0,0,0.04)}
+.stone-box{width:160px;height:160px;border-radius:20px;background:linear-gradient(180deg,#fffefc,#fff6f0);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 46px rgba(40,30,60,0.08)}
+.stone-core{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;color:var(--gold);font-weight:700;font-size:36px;background:linear-gradient(180deg,#fff9ec,#fff2e0);box-shadow:inset 0 -10px 22px rgba(0,0,0,0.04)}
 
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;align-items:center}
+/* controls */
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center}
 .btn{
-  background: linear-gradient(180deg,var(--gold1),var(--gold2));
-  color:#2b2430;border:0;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;box-shadow:0 12px 28px rgba(200,120,40,0.14);
+  background: linear-gradient(180deg,var(--coral),#ff6b58);
+  color:#fff;border:0;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:800;box-shadow:0 14px 34px rgba(255,90,70,0.14);
   transition:transform .12s ease, box-shadow .12s ease;
 }
-.btn:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(200,120,40,0.18)}
-.btn.ghost{background:transparent;border:1px solid rgba(40,30,60,0.06);color:var(--ink);box-shadow:none}
+.btn:hover{transform:translateY(-4px)}
+.btn.alt{background:linear-gradient(180deg,var(--teal),#25b895); box-shadow:0 14px 34px rgba(30,200,160,0.12)}
+.btn.ghost{background:transparent;border:1px solid rgba(40,30,60,0.06);color:var(--ink);box-shadow:none;font-weight:700;padding:10px 12px}
 
 /* result area */
-#result{margin-top:14px;min-height:220px;padding:20px;border-radius:12px;background:linear-gradient(180deg,#fff,#fffaf6);border:1px solid rgba(200,180,220,0.04);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 6px 18px rgba(20,10,30,0.02)}
+#result{margin-top:16px;min-height:220px;padding:20px;border-radius:14px;background:linear-gradient(180deg,#fff,#fffdfc);border:1px solid rgba(200,180,220,0.04);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 6px 18px rgba(20,10,30,0.02)}
 .blessing{font-family:"Playfair Display",serif;color:var(--ink);font-size:20px;line-height:1.55;text-align:center;margin:0;padding:0 8px;white-space:pre-wrap}
 .meta{margin-top:12px;color:var(--muted);font-size:13px}
 
-/* right column motifs */
-.aside{display:flex;flex-direction:column;gap:12px}
-.motif{border-radius:12px;padding:12px;background:linear-gradient(180deg,#fff,#fffefc);border:1px solid rgba(120,100,160,0.02);box-shadow:0 8px 20px rgba(20,10,40,0.03)}
+/* right aside */
+.aside{display:flex;flex-direction:column;gap:14px}
+.motif{border-radius:12px;padding:14px;background:linear-gradient(180deg,#fff,#fffefc);border:1px solid rgba(120,100,160,0.02);box-shadow:0 10px 28px rgba(20,10,40,0.03)}
 .motif h3{margin:0 0 8px 0;font-family:"Playfair Display",serif;color:var(--ink);font-size:16px}
 .motif p{margin:0;color:var(--muted);font-size:13px}
 
-/* decorative skyline (Singapore nod) */
-.skyline{
-  position:absolute;left:0;right:0;bottom:0;height:54px;background:
-  linear-gradient(180deg, rgba(255,255,255,0), rgba(250,248,250,0.9));
-  pointer-events:none;
+/* PETAL SVG container for floating petals */
+.petal-wrap{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;overflow:visible}
+
+/* each petal is an SVG group we animate */
+.petal{position:absolute; width:64px; height:64px; pointer-events:none; transform-origin:center; animation:petalFloat 6s ease-in-out infinite}
+.petal.small{width:44px;height:44px; animation-duration:5.8s}
+@keyframes petalFloat{
+  0%{transform:translateY(0) rotate(0) scale(1)}
+  50%{transform:translateY(-18px) rotate(12deg) scale(1.02)}
+  100%{transform:translateY(0) rotate(0) scale(1)}
 }
-.skyline svg{opacity:0.12;display:block;margin:0 auto;}
 
-/* floating petal animation */
-.petal{position:absolute;width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg,#ffdfe8,#ffe8f0);opacity:0.95;filter:blur(.1px);pointer-events:none;animation:float 6s ease-in-out infinite}
-.p1{left:8%;top:8%;animation-delay:0s}
-.p2{left:22%;top:2%;animation-delay:1.2s}
-.p3{left:46%;top:6%;animation-delay:.6s}
-.p4{left:70%;top:12%;animation-delay:2s}
-@keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(8deg)}100%{transform:translateY(0) rotate(0)}}
+/* BOLDER skyline block (Singapore landmarks) */
+.skyline-wrap{position:absolute;left:0;right:0;bottom:0;height:84px;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;opacity:0.96}
+.skyline{width:92%; max-width:880px; height:84px;}
 
-/* responsive */
+/* responsive tweaks */
 @media (max-width:520px){
-  .stone-box{width:110px;height:110px}
-  .stone-core{width:72px;height:72px;font-size:22px}
+  .stone-box{width:120px;height:120px}
+  .stone-core{width:78px;height:78px;font-size:26px}
   .grid{grid-template-columns:1fr}
   .aside{order:2}
 }
 </style>
 </head>
 <body>
-  <div class="wrap" role="main">
+  <div class="wrap" role="main" aria-live="polite">
     <div class="header-strip" aria-hidden="true"></div>
-
-    <!-- orchid petal ornament -->
-    <svg class="orchid" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g fill="#f0c6b8"><path d="M100 2 L116 40 L158 44 L126 70 L136 110 L100 90 L64 110 L74 70 L42 44 L84 40 Z"/></g>
-    </svg>
 
     <div class="header">
       <div class="logo">ॐ</div>
       <div class="title">
         <h1>Daily Oracle</h1>
-        <p>Indo-Western • Singapore nature • handcrafted reveals</p>
+        <p>Bright • cute • Indo-Western with Singapore nature</p>
       </div>
     </div>
 
     <div class="grid">
-      <!-- left -->
+      <!-- LEFT -->
       <div class="card">
         <div class="stone-row">
           <div class="stone-box" aria-hidden="true"><div class="stone-core">ॐ</div></div>
 
           <div style="flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
               <div>
-                <div style="font-weight:800;color:var(--ink);font-size:16px">Your personal Daily Oracle</div>
-                <div style="color:var(--muted);font-size:13px;margin-top:6px">Tap your Blessing Stone or press Reveal: each draw is from your curated library of reveals (text, poem, fortune, quote, memory, image, audio).</div>
+                <div style="font-weight:800;color:var(--ink);font-size:16px">Your Daily Oracle</div>
+                <div style="color:var(--muted);font-size:13px;margin-top:6px">Tap your Blessing Stone or press Reveal — each draw is curated from your collection (text, poem, fortune, quote, memory, image, audio).</div>
               </div>
 
-              <div class="controls">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
                 <button id="reveal" class="btn">Reveal</button>
-                <button id="newOne" class="btn ghost">Another</button>
+                <button id="newOne" class="btn alt">Another</button>
                 <button id="last" class="btn ghost">Show last</button>
               </div>
             </div>
 
-            <div id="result" aria-live="polite">
+            <div id="result">
               <div id="contentArea"><p style="color:var(--muted)">Tap <strong>Reveal</strong> to draw a blessing from the Daily Oracle.</p></div>
             </div>
 
-            <div style="margin-top:10px;color:var(--muted);font-size:13px">Tip: audio needs a tap to play on phones. Edit reveals in <code>docs/data/blessings.json</code>.</div>
+            <div style="margin-top:12px;color:var(--muted);font-size:13px">Tip: audio requires a tap to play on phones. Edit reveals in <code>docs/data/blessings.json</code>.</div>
           </div>
         </div>
       </div>
 
-      <!-- right -->
+      <!-- RIGHT -->
       <aside class="aside">
         <div class="motif">
           <h3>Design accents</h3>
-          <p>Orchid petal ornament, gold foil highlight, batik texture and a subtle skyline echo of Singapore — woven together in a warm, cute palette.</p>
+          <p>Bright coral, teal and lilac palette, orchid petal shapes, gold highlights, and a clear Singapore skyline (Marina Bay Sands, Supertree Grove, Merlion).</p>
         </div>
 
         <div class="motif">
           <h3>Content scale</h3>
-          <p>Reveals are loaded from <code>docs/data/blessings.json</code>. I can generate 800+ items for you and paste them directly into that file.</p>
+          <p>Reveals are loaded from <code>docs/data/blessings.json</code>. I can generate 800+ items for you and paste them into that file.</p>
         </div>
 
         <div class="motif" style="text-align:center">
@@ -190,25 +183,70 @@ body{
       </aside>
     </div>
 
-    <footer style="text-align:center;margin-top:12px;color:var(--muted)">Made with care — Daily Oracle</footer>
+    <footer style="margin-top:14px;text-align:center;color:var(--muted)">Made with bright care — Daily Oracle</footer>
 
-    <!-- skyline at bottom -->
-    <div class="skyline" aria-hidden="true">
-      <svg viewBox="0 0 800 54" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#2b2350"><rect x="30" y="20" width="6" height="22"/><rect x="52" y="8" width="8" height="34"/><rect x="72" y="14" width="6" height="28"/><rect x="92" y="2" width="12" height="40"/><rect x="114" y="18" width="6" height="24"/></g>
+    <!-- PETAL SVGs (real petal shapes) -->
+    <div class="petal-wrap" aria-hidden="true">
+      <!-- petal 1 -->
+      <div class="petal" style="left:8%;top:6%;transform:rotate(-18deg)">
+        <svg viewBox="0 0 64 64" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 2 C48 8,58 24,42 46 C26 68,10 56,12 36 C14 18,18 6,32 2 Z" fill="#ffdfe8" stroke="#ffb6c1" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <!-- petal 2 -->
+      <div class="petal small" style="left:24%;top:2%;transform:rotate(6deg)">
+        <svg viewBox="0 0 64 64"><path d="M30 4 C46 12,58 28,44 48 C30 68,14 56,16 36 C18 18,24 6,30 4 Z" fill="#ffe7f0" stroke="#ffc0d1" stroke-width="1.2"/></svg>
+      </div>
+      <!-- petal 3 -->
+      <div class="petal" style="left:44%;top:6%;transform:rotate(28deg)">
+        <svg viewBox="0 0 64 64"><path d="M34 2 C50 10,60 28,46 46 C32 64,16 54,18 36 C20 18,28 6,34 2 Z" fill="#fde8ff" stroke="#e9c9ff" stroke-width="1.2"/></svg>
+      </div>
+      <!-- petal 4 -->
+      <div class="petal small" style="left:68%;top:10%;transform:rotate(-12deg)">
+        <svg viewBox="0 0 64 64"><path d="M30 6 C48 14,60 30,46 50 C32 70,18 56,20 36 C22 18,26 8,30 6 Z" fill="#d6fff0" stroke="#aef0d6" stroke-width="1.2"/></svg>
+      </div>
+      <!-- petal 5 -->
+      <div class="petal" style="left:82%;top:4%;transform:rotate(6deg)">
+        <svg viewBox="0 0 64 64"><path d="M32 3 C50 10,62 28,48 48 C34 68,16 54,18 36 C20 18,24 6,32 3 Z" fill="#fff0d6" stroke="#ffe6b3" stroke-width="1.2"/></svg>
+      </div>
+    </div>
+
+    <!-- Singapore skyline (stylized but clearly MBS, Supertrees, Merlion) -->
+    <div class="skyline-wrap" aria-hidden="true">
+      <svg class="skyline" viewBox="0 0 1000 120" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#2b2350">
+          <!-- Marina Bay Sands (three towers + boat) -->
+          <rect x="220" y="30" width="28" height="70" rx="3"/>
+          <rect x="260" y="18" width="28" height="82" rx="3"/>
+          <rect x="300" y="34" width="28" height="66" rx="3"/>
+          <path d="M196 18 Q300 -10 412 18 Q410 22 196 22 Z" transform="translate(0,0) scale(0.9,0.9)" />
+          <!-- Supertree Grove simplified -->
+          <g transform="translate(520,22)">
+            <rect x="-6" y="34" width="12" height="66" rx="2"/>
+            <path d="M0 0 C18 10,36 10,54 0 C42 26,18 26,0 0 Z" transform="translate(-27,0)"/>
+          </g>
+          <g transform="translate(580,24)">
+            <rect x="-6" y="36" width="12" height="64" rx="2"/>
+            <path d="M0 0 C18 10,36 10,54 0 C42 26,18 26,0 0 Z" transform="translate(-27,0)"/>
+          </g>
+          <!-- Merlion (stylized head + body on left) -->
+          <path d="M80 56 C90 40,120 36,140 46 C150 50,160 58,156 72 C150 92,132 100,112 96 C94 92,80 74,80 56 Z" transform="translate(0,0) scale(0.9)"/>
+          <path d="M104 96 Q126 112 152 112" stroke="#2b2350" fill="none" stroke-width="3"/>
+          <!-- small skyline blocks for context -->
+          <rect x="10" y="56" width="10" height="44" rx="2"/>
+          <rect x="40" y="46" width="12" height="54" rx="2"/>
+          <rect x="460" y="44" width="10" height="56" rx="2"/>
+          <rect x="700" y="34" width="14" height="66" rx="3"/>
+        </g>
       </svg>
     </div>
 
-    <!-- floating petals -->
-    <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
-
   </div>
 
-<!-- SCRIPT: loads external JSON of reveals -->
 <script>
+/* DATA URL (external JSON of reveals) */
 const DATA_URL = './data/blessings.json';
 let items = []; let lastIdx = null;
-
 async function loadData(){
   try{
     const res = await fetch(DATA_URL + '?v=' + Date.now());
@@ -220,25 +258,19 @@ async function loadData(){
     document.getElementById('contentArea').innerHTML = '<p style="color:#b44">Could not load reveals. Create docs/data/blessings.json</p>';
   }
 }
-function pickRandomIdx(last){
-  if(!items || items.length===0) return -1;
-  if(items.length===1) return 0;
-  let i; do { i = Math.floor(Math.random()*items.length); } while(i===last);
-  return i;
-}
+function pickRandomIdx(last){ if(!items || items.length===0) return -1; if(items.length===1) return 0; let i; do{i=Math.floor(Math.random()*items.length);} while(i===last); return i; }
 function renderItem(i){
   const box = document.getElementById('contentArea'); box.innerHTML='';
-  if(i<0){ box.innerHTML = '<p style="color:var(--muted)">No reveals yet — add items to docs/data/blessings.json</p>'; return; }
+  if(i<0){ box.innerHTML='<p style="color:var(--muted)">No reveals yet — add items to docs/data/blessings.json</p>'; return; }
   const it = items[i];
-  if(!it){ box.innerHTML = '<p style="color:var(--muted)">Invalid item</p>'; return; }
-
+  if(!it){ box.innerHTML='<p style="color:var(--muted)">Invalid item</p>'; return; }
   if(it.type === 'audio'){
     const t = document.createElement('div'); t.className='meta'; t.innerText = it.label || 'Audio Blessing';
     const audio = document.createElement('audio'); audio.controls=true; audio.src = it.src; audio.setAttribute('playsinline',''); audio.setAttribute('preload','none');
     box.appendChild(t); box.appendChild(audio);
     const hint = document.createElement('div'); hint.className='meta'; hint.innerText='Tap play to listen.'; box.appendChild(hint);
   } else if(it.type === 'image'){
-    const img = document.createElement('img'); img.src = it.src; img.alt = it.label||'image'; img.style.maxWidth='92%'; img.style.borderRadius='10px';
+    const img = document.createElement('img'); img.src = it.src; img.alt = it.label || 'image'; img.style.maxWidth='92%'; img.style.borderRadius='12px';
     box.appendChild(img);
     if(it.label){ const cap=document.createElement('div'); cap.className='meta'; cap.innerText=it.label; box.appendChild(cap); }
   } else {
@@ -248,17 +280,11 @@ function renderItem(i){
     box.appendChild(meta);
   }
 }
-
-document.getElementById('reveal').addEventListener('click', ()=>{
-  const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-});
-document.getElementById('newOne').addEventListener('click', ()=>{
-  const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-});
+document.getElementById('reveal').addEventListener('click', ()=>{ const idx=pickRandomIdx(lastIdx); lastIdx=idx; renderItem(idx); });
+document.getElementById('newOne').addEventListener('click', ()=>{ const idx=pickRandomIdx(lastIdx); lastIdx=idx; renderItem(idx); });
 document.getElementById('last').addEventListener('click', ()=>{ if(lastIdx!==null) renderItem(lastIdx); });
-
+// show site url for NFC programming
 (function(){ const site = location.origin + location.pathname.replace(/\/index\.html$/,''); document.getElementById('siteurl').innerText = site; })();
-
 loadData();
 </script>
 </body>
