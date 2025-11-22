@@ -1,209 +1,56 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Daily Oracle — Blessing Stone</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DIAGNOSTIC — Petals & Skyline</title>
 <style>
-:root{
-  --bg1:#f5f7ff;
-  --bg2:#fdf4ff;
-  --blue:#4f6ef7;
-  --pink:#ff6fb5;
-  --purple:#8c6bff;
-  --mint:#7de3d1;
-  --ink:#2b2430;
-  --muted:#6e6470;
-  --card:#ffffff;
-  --shadow:0 28px 60px rgba(45,36,80,0.1);
-}
-
-/* ------------------ Base Layout ------------------ */
-body{
-  margin:0;
-  font-family:"Nunito",system-ui;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  -webkit-font-smoothing:antialiased;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  min-height:100vh;
-}
-
-.wrap{
-  width:100%;
-  max-width:980px;
-  background:rgba(255,255,255,0.96);
-  border-radius:18px;
-  padding:18px;
-  position:relative;
-  box-shadow:var(--shadow);
-  overflow:visible;
-}
-
-/* ------------------ Header ------------------ */
-.header{display:flex;gap:14px;align-items:center;margin-bottom:12px}
-.logo{
-  width:72px;height:72px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#fff,#f5faff);
-  font-family:"Playfair Display";font-size:32px;
-  color:var(--purple);
-  box-shadow:inset 0 -8px 18px rgba(0,0,0,0.04);
-}
-.title h1{margin:0;font-family:"Playfair Display";font-size:24px;color:var(--blue)}
-.title p{margin:0;color:var(--muted);font-size:13px}
-
-/* ------------------ Grid ------------------ */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 320px;
-  gap:16px;
-}
-@media(max-width:880px){ .grid{grid-template-columns:1fr} }
-
-/* ------------------ Card ------------------ */
-.card{
-  background:var(--card);
-  border-radius:12px;
-  padding:14px;
-  border:1px solid rgba(50,40,80,0.03);
-  box-shadow:0 10px 30px rgba(20,15,40,0.04);
-}
-
-/* ------------------ Oracle Section ------------------ */
-.stone-row{display:flex;gap:14px;align-items:flex-start}
-.stone-box{
-  width:140px;height:140px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#fff,#f4faff);
-  box-shadow:0 14px 36px rgba(40,30,90,0.06);
-}
-.stone-core{
-  width:96px;height:96px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#fff6ff,#fff0fb);
-  font-family:"Playfair Display";font-size:30px;font-weight:700;color:var(--pink);
-}
-
-/* Buttons */
-.controls{display:flex;gap:10px;flex-wrap:wrap}
-.btn{
-  border:0;border-radius:12px;
-  padding:10px 14px;font-weight:700;color:white;cursor:pointer;
-  background:linear-gradient(180deg,var(--blue),#3b5cf0);
-  box-shadow:0 12px 30px rgba(79,110,247,0.2);
-}
-.btn.pink{
-  background:linear-gradient(180deg,var(--pink),#ff4d9a);
-  box-shadow:0 12px 30px rgba(255,111,181,0.2);
-}
-.btn.ghost{
-  background:transparent;color:var(--ink);
-  border:1px solid rgba(60,40,70,0.1);
-}
-
-/* Result box */
-#result{
-  margin-top:14px;
-  min-height:200px;
-  padding:16px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#fff,#fcfbff);
-}
-.blessing{
-  font-family:"Playfair Display";
-  font-size:20px;text-align:center;
-  white-space:pre-wrap;
-}
-.meta{margin-top:12px;color:var(--muted);font-size:13px}
-
-/* ------------------ Aside ------------------ */
-.aside{display:flex;flex-direction:column;gap:12px}
-.motif h3{margin:0;font-family:"Playfair Display";font-size:16px}
-.motif p{margin:0;font-size:13px;color:var(--muted)}
-
-/* ------------------ PETALS ------------------ */
-.petal-wrap{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  overflow:visible;
-  z-index:2;
-}
-
-.petal{
-  position:absolute;
-  width:60px;height:60px;
-  opacity:0;
-  transform-origin:center;
-  will-change:transform,opacity;
-  filter:drop-shadow(0 10px 22px rgba(50,30,70,0.08));
-}
-
-@media(max-width:520px){ .petal{width:42px;height:42px} }
-
-@keyframes driftA{
-  0%{transform:translate(0,0) rotate(0)}
-  30%{transform:translate(28px,-34px) rotate(10deg)}
-  60%{transform:translate(-20px,-70px) rotate(-8deg)}
-  100%{transform:translate(0,0) rotate(0)}
-}
-@keyframes driftB{
-  0%{transform:translate(0,0) rotate(0)}
-  40%{transform:translate(-40px,-20px) rotate(-18deg)}
-  80%{transform:translate(8px,-60px) rotate(12deg)}
-  100%{transform:translate(0,0) rotate(0)}
-}
-@keyframes driftC{
-  0%{transform:translate(0,0) rotate(0)}
-  30%{transform:translate(34px,-30px) rotate(18deg)}
-  70%{transform:translate(56px,-10px) rotate(-14deg)}
-  100%{transform:translate(0,0) rotate(0)}
-}
-
-.petal[data-anim="A"]{animation:driftA 11s ease-in-out infinite}
-.petal[data-anim="B"]{animation:driftB 13s ease-in-out infinite}
-.petal[data-anim="C"]{animation:driftC 12s ease-in-out infinite}
-
-/* ------------------ SKYLINE ------------------ */
-.skyline-wrap{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  display:flex;justify-content:center;
-  pointer-events:none;
-  z-index:1;
-}
-.skyline{
-  width:95%;max-width:1000px;height:110px;
-  opacity:0.9;
-}
-
-@media(max-width:520px){
-  .skyline{height:70px}
-}
+  html,body{height:100%;margin:0}
+  body{display:flex;align-items:center;justify-content:center;background:#f6fbff;font-family:Arial}
+  .wrap{width:100%;max-width:900px;background:white;border-radius:14px;padding:18px;box-shadow:0 20px 40px rgba(0,0,0,0.08);text-align:center;position:relative;overflow:visible}
+  h1{margin:0 0 8px 0;color:#2b2350}
+  p{color:#6e6470}
+  /* BIG petals visible anywhere */
+  .petal{position:absolute;width:220px;height:220px;pointer-events:none;opacity:1;transform-origin:center}
+  .petal svg{width:100%;height:100%}
+  .petal.p1{left:8%;top:6%}
+  .petal.p2{left:40%;top:2%}
+  .petal.p3{left:70%;top:8%}
+  /* BIG skyline */
+  .skyline{position:absolute;left:0;right:0;bottom:-6px;height:160px;pointer-events:none}
+  .skyline svg{width:100%;height:100%}
+  /* make content appear above petals */
+  .content{position:relative;z-index:20}
 </style>
 </head>
-
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <div class="petal p1"><svg viewBox="0 0 64 64"><path d="M32 2 C50 10,62 28,46 46 C30 64,14 54,16 36 C18 18,24 6,32 2 Z" fill="#ffd6f0" stroke="#ffb3e0"/></svg></div>
+    <div class="petal p2"><svg viewBox="0 0 64 64"><path d="M34 2 C50 10,62 28,46 46 C32 64,16 54,18 36 C20 18,28 6,34 2 Z" fill="#e6d8ff" stroke="#d0baff"/></svg></div>
+    <div class="petal p3"><svg viewBox="0 0 64 64"><path d="M30 4 C46 12,58 28,44 48 C30 68,14 56,16 36 C18 18,24 6,30 4 Z" fill="#d6fff0" stroke="#aef0d6"/></svg></div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="logo">ॐ</div>
-    <div class="title">
-      <h1>Daily Oracle</h1>
-      <p>Cute • Blue • Pink • Purple • Singapore Style</p>
+    <div class="content">
+      <h1>DIAGNOSTIC: Petals & Skyline</h1>
+      <p>If you see large petals (top) and a big skyline (bottom), the visuals are being rendered correctly.</p>
+    </div>
+
+    <div class="skyline">
+      <!-- very clear skyline -->
+      <svg viewBox="0 0 1000 160" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#26223a">
+          <!-- big Merlion left -->
+          <path d="M90 60 C120 40,170 36,210 56 C240 70,260 88,250 110 C236 140,200 150,160 140 C130 132,100 100,90 60 Z"/>
+          <path d="M160 140 Q200 160 240 160" stroke="#26223a" fill="none" stroke-width="6"/>
+          <!-- MBS big center -->
+          <rect x="360" y="46" width="30" height="90" rx="3"/>
+          <rect x="410" y="30" width="30" height="106" rx="3"/>
+          <rect x="460" y="52" width="30" height="80" rx="3"/>
+          <path d="M320 32 Q430 -10 540 32 Q540 38 320 38 Z" fill="#26223a"/>
+          <!-- Supertrees right -->
+          <g transform="translate(660,50)">
+            <rect x="-6" y="36" width="12" height="84" rx="3"/>
+            <path d="M0 0 C36 14,72 14,108 0 C92 34,36 34,0 0 Z" transform="translate(-54,0)"/>
+          </g>
+        </g>
+      </svg>
     </div>
   </div>
-
-  <div class="grid">
-    <!-- LEFT -->
-    <div class="card">
-      <div class="stone-row">
-        <div class="stone-box"><div class="stone-core">ॐ</
+</body>
+</html>
