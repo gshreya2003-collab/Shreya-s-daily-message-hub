@@ -10,332 +10,200 @@
 
 <style>
 :root{
-  --bg-1: #f5f7ff;
-  --bg-2: #fdf4ff;
-  --blue: #4f6ef7;
-  --pink: #ff6fb5;
-  --purple: #8c6bff;
-  --mint: #7de3d1;
-  --card:#ffffff;
-  --ink: #2b2430;
+  --bg1:#f5f7ff;
+  --bg2:#fdf4ff;
+  --blue:#4f6ef7;
+  --pink:#ff6fb5;
+  --purple:#8c6bff;
+  --mint:#7de3d1;
+  --ink:#2b2430;
   --muted:#6e6470;
-  --shadow: 0 28px 60px rgba(45,36,80,0.10);
+  --card:#ffffff;
+  --shadow:0 28px 60px rgba(45,36,80,0.1);
 }
 
-/* Reset & layout */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:"Nunito",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);-webkit-font-smoothing:antialiased}
+/* ------------------ Base Layout ------------------ */
 body{
-  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
-  display:flex;align-items:center;justify-content:center;padding:18px;
+  margin:0;
+  font-family:"Nunito",system-ui;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
   min-height:100vh;
 }
 
-/* Wrap - make responsive and avoid overflow */
 .wrap{
   width:100%;
   max-width:980px;
+  background:rgba(255,255,255,0.96);
   border-radius:18px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
-  box-shadow:var(--shadow);
   padding:18px;
   position:relative;
-  /* allow visible petals and skyline but avoid content clipping */
+  box-shadow:var(--shadow);
   overflow:visible;
 }
 
-/* header */
-.header{display:flex;gap:14px;align-items:center;margin-bottom:8px}
+/* ------------------ Header ------------------ */
+.header{display:flex;gap:14px;align-items:center;margin-bottom:12px}
 .logo{
-  width:72px;height:72px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#fff,#f5faff); font-family:"Playfair Display",serif; font-size:32px;color:var(--purple);
-  box-shadow: inset 0 -8px 18px rgba(0,0,0,0.03);
+  width:72px;height:72px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#fff,#f5faff);
+  font-family:"Playfair Display";font-size:32px;
+  color:var(--purple);
+  box-shadow:inset 0 -8px 18px rgba(0,0,0,0.04);
 }
-.title h1{margin:0;font-family:"Playfair Display",serif;font-size:20px;color:var(--blue)}
+.title h1{margin:0;font-family:"Playfair Display";font-size:24px;color:var(--blue)}
 .title p{margin:0;color:var(--muted);font-size:13px}
 
-/* grid */
-.grid{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start}
-@media (max-width:880px){ .grid{grid-template-columns:1fr} }
-
-/* cards */
-.card{background:var(--card);border-radius:12px;padding:14px;border:1px solid rgba(50,40,80,0.03);box-shadow:0 10px 30px rgba(20,15,40,0.04)}
-.left-col{min-width:0}
-
-/* stone / controls */
-.stone-row{display:flex;gap:14px;align-items:flex-start}
-.stone-box{width:140px;height:140px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#f4faff);box-shadow:0 14px 36px rgba(50,40,90,0.06)}
-.stone-core{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;color:var(--pink);font-size:30px;font-weight:700;background:linear-gradient(180deg,#fff6ff,#fff0fb);box-shadow:inset 0 -8px 18px rgba(0,0,0,0.03)}
-
-.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{
-  border:0;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;color:white;
-  background: linear-gradient(180deg,var(--blue),#3b5cf0); box-shadow:0 12px 30px rgba(79,110,247,0.12);
-  transition:transform .12s;
+/* ------------------ Grid ------------------ */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:16px;
 }
-.btn:hover{transform:translateY(-3px)}
-.btn.pink{background: linear-gradient(180deg,var(--pink),#ff4d9a); box-shadow:0 12px 30px rgba(255,111,181,0.12)}
-.btn.ghost{background:transparent;border:1px solid rgba(40,30,60,0.06);color:var(--ink);box-shadow:none}
+@media(max-width:880px){ .grid{grid-template-columns:1fr} }
 
-/* result */
-#result{margin-top:14px;min-height:220px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff,#fcfbff);border:1px solid rgba(200,180,220,0.04);display:flex;align-items:center;justify-content:center;flex-direction:column}
-.blessing{font-family:"Playfair Display",serif;color:var(--ink);font-size:20px;text-align:center;line-height:1.55;white-space:pre-wrap;margin:0;padding:0 8px}
+/* ------------------ Card ------------------ */
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:14px;
+  border:1px solid rgba(50,40,80,0.03);
+  box-shadow:0 10px 30px rgba(20,15,40,0.04);
+}
+
+/* ------------------ Oracle Section ------------------ */
+.stone-row{display:flex;gap:14px;align-items:flex-start}
+.stone-box{
+  width:140px;height:140px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#fff,#f4faff);
+  box-shadow:0 14px 36px rgba(40,30,90,0.06);
+}
+.stone-core{
+  width:96px;height:96px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#fff6ff,#fff0fb);
+  font-family:"Playfair Display";font-size:30px;font-weight:700;color:var(--pink);
+}
+
+/* Buttons */
+.controls{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  border:0;border-radius:12px;
+  padding:10px 14px;font-weight:700;color:white;cursor:pointer;
+  background:linear-gradient(180deg,var(--blue),#3b5cf0);
+  box-shadow:0 12px 30px rgba(79,110,247,0.2);
+}
+.btn.pink{
+  background:linear-gradient(180deg,var(--pink),#ff4d9a);
+  box-shadow:0 12px 30px rgba(255,111,181,0.2);
+}
+.btn.ghost{
+  background:transparent;color:var(--ink);
+  border:1px solid rgba(60,40,70,0.1);
+}
+
+/* Result box */
+#result{
+  margin-top:14px;
+  min-height:200px;
+  padding:16px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#fff,#fcfbff);
+}
+.blessing{
+  font-family:"Playfair Display";
+  font-size:20px;text-align:center;
+  white-space:pre-wrap;
+}
 .meta{margin-top:12px;color:var(--muted);font-size:13px}
 
-/* aside */
+/* ------------------ Aside ------------------ */
 .aside{display:flex;flex-direction:column;gap:12px}
-.motif h3{margin:0 0 8px 0;font-family:"Playfair Display",serif;color:var(--ink);font-size:16px}
-.motif p{margin:0;color:var(--muted);font-size:13px}
+.motif h3{margin:0;font-family:"Playfair Display";font-size:16px}
+.motif p{margin:0;font-size:13px;color:var(--muted)}
 
-/* petals container (no overflow hidden) */
-.petal-wrap{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;overflow:visible;z-index:0}
+/* ------------------ PETALS ------------------ */
+.petal-wrap{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:visible;
+  z-index:2;
+}
 
-/* petal animation: follow gentle bezier-like drift paths using translate + rotate */
 .petal{
   position:absolute;
-  width:64px;height:64px;
+  width:60px;height:60px;
+  opacity:0;
   transform-origin:center;
+  will-change:transform,opacity;
+  filter:drop-shadow(0 10px 22px rgba(50,30,70,0.08));
+}
+
+@media(max-width:520px){ .petal{width:42px;height:42px} }
+
+@keyframes driftA{
+  0%{transform:translate(0,0) rotate(0)}
+  30%{transform:translate(28px,-34px) rotate(10deg)}
+  60%{transform:translate(-20px,-70px) rotate(-8deg)}
+  100%{transform:translate(0,0) rotate(0)}
+}
+@keyframes driftB{
+  0%{transform:translate(0,0) rotate(0)}
+  40%{transform:translate(-40px,-20px) rotate(-18deg)}
+  80%{transform:translate(8px,-60px) rotate(12deg)}
+  100%{transform:translate(0,0) rotate(0)}
+}
+@keyframes driftC{
+  0%{transform:translate(0,0) rotate(0)}
+  30%{transform:translate(34px,-30px) rotate(18deg)}
+  70%{transform:translate(56px,-10px) rotate(-14deg)}
+  100%{transform:translate(0,0) rotate(0)}
+}
+
+.petal[data-anim="A"]{animation:driftA 11s ease-in-out infinite}
+.petal[data-anim="B"]{animation:driftB 13s ease-in-out infinite}
+.petal[data-anim="C"]{animation:driftC 12s ease-in-out infinite}
+
+/* ------------------ SKYLINE ------------------ */
+.skyline-wrap{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  display:flex;justify-content:center;
   pointer-events:none;
-  will-change: transform, opacity;
-  filter:drop-shadow(0 8px 18px rgba(100,80,140,0.06));
+  z-index:1;
 }
-
-/* different duration and delays for natural variance */
-@keyframes drift1{
-  0%{transform:translate(0,0) rotate(0); opacity:0.95}
-  25%{transform:translate(18px,-22px) rotate(12deg); opacity:0.95}
-  50%{transform:translate(-14px,-40px) rotate(-8deg); opacity:0.9}
-  75%{transform:translate(-28px,-20px) rotate(18deg); opacity:0.95}
-  100%{transform:translate(0,0) rotate(0); opacity:0.95}
-}
-@keyframes drift2{
-  0%{transform:translate(0,0) rotate(0); opacity:0.95}
-  30%{transform:translate(-28px,-18px) rotate(-10deg); opacity:0.9}
-  60%{transform:translate(-6px,-46px) rotate(6deg); opacity:0.92}
-  100%{transform:translate(0,0) rotate(0); opacity:0.95}
-}
-@keyframes drift3{
-  0%{transform:translate(0,0) rotate(0); opacity:0.95}
-  30%{transform:translate(34px,-28px) rotate(16deg); opacity:0.95}
-  60%{transform:translate(56px,-10px) rotate(-14deg); opacity:0.9}
-  100%{transform:translate(0,0) rotate(0); opacity:0.95}
-}
-
-/* give each petal its own animation, speed, and starting transform so they wander */
-.p1{left:6%; top:6%; animation:drift1 9.6s ease-in-out infinite; transform:rotate(-18deg) scale(0.96)}
-.p2{left:22%; top:2%; animation:drift2 11.2s ease-in-out infinite; transform:rotate(6deg) scale(0.88)}
-.p3{left:42%; top:8%; animation:drift3 10.2s ease-in-out infinite; transform:rotate(28deg) scale(1)}
-.p4{left:68%; top:10%; animation:drift1 12.4s ease-in-out infinite; transform:rotate(-12deg) scale(0.9)}
-.p5{left:84%; top:4%; animation:drift2 9.2s ease-in-out infinite; transform:rotate(6deg) scale(0.92)}
-
-/* skyline at bottom — bigger and integrated */
-.skyline-wrap{position:absolute;left:0;right:0;bottom:0;height:auto;pointer-events:none;display:flex;justify-content:center;padding-bottom:6px}
 .skyline{
-  width:95%;
-  max-width:1000px;
-  height:110px;
-  display:block;
-  opacity:0.98;
+  width:95%;max-width:1000px;height:110px;
+  opacity:0.9;
 }
 
-/* mobile friendliness */
-@media (max-width:520px){
-  body{padding:12px}
-  .wrap{padding:12px;border-radius:12px}
-  .stone-box{width:120px;height:120px}
-  .stone-core{width:78px;height:78px;font-size:24px}
-  .grid{grid-template-columns:1fr}
-  .controls{justify-content:flex-start}
-  #result{min-height:180px;padding:14px}
-  .petal{width:44px;height:44px}
-  .skyline{height:72px}
+@media(max-width:520px){
+  .skyline{height:70px}
 }
-
-/* ensure no accidental page cutoff: allow page to grow and scroll on small screens */
-html,body{min-height:100%}
-.wrap{max-width:98vw}
 </style>
 </head>
+
 <body>
-  <div class="wrap" role="main">
-    <div class="header">
-      <div class="logo">ॐ</div>
-      <div class="title">
-        <h1>Daily Oracle</h1>
-        <p>Bright • Cute • Indo-Western with Singapore nature</p>
-      </div>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">ॐ</div>
+    <div class="title">
+      <h1>Daily Oracle</h1>
+      <p>Cute • Blue • Pink • Purple • Singapore Style</p>
     </div>
-
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="left-col card">
-        <div class="stone-row" style="z-index:2;position:relative">
-          <div class="stone-box" aria-hidden="true"><div class="stone-core">ॐ</div></div>
-
-          <div style="flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-              <div>
-                <div style="font-weight:800;color:var(--ink);font-size:15px">Your Daily Oracle</div>
-                <div style="color:var(--muted);font-size:13px;margin-top:6px">Tap your Blessing Stone or press Reveal — each draw is curated from the oracle.</div>
-              </div>
-
-              <div class="controls">
-                <button id="reveal" class="btn">Reveal</button>
-                <button id="newOne" class="btn pink">Another</button>
-                <button id="last" class="btn ghost">Show last</button>
-              </div>
-            </div>
-
-            <div id="result">
-              <div id="contentArea"><p style="color:var(--muted)">Tap <strong>Reveal</strong> to draw a blessing from the Daily Oracle.</p></div>
-            </div>
-
-            <div style="margin-top:12px;color:var(--muted);font-size:13px">Tip: audio requires a tap to play on phones. Edit reveals in <code>docs/data/blessings.json</code>.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT -->
-      <aside class="aside">
-        <div class="card motif">
-          <h3>Design accents</h3>
-          <p style="margin-top:6px;color:var(--muted)">Bright blue, pink and purple palette • drifting petal shapes • clear Singapore skyline (Marina Bay Sands, Supertrees, Merlion).</p>
-        </div>
-
-        <div class="card motif">
-          <h3>Content & scale</h3>
-          <p style="margin-top:6px;color:var(--muted)">Reveals are loaded from <code>docs/data/blessings.json</code> so you can store hundreds of items easily.</p>
-        </div>
-
-        <div class="card motif" style="text-align:center">
-          <h3>Site URL</h3>
-          <div id="siteurl" style="font-weight:700;color:var(--ink);margin-top:8px"></div>
-          <div style="color:var(--muted);font-size:13px;margin-top:8px">Use as the NFC URL.</div>
-        </div>
-      </aside>
-    </div>
-
-    <footer style="margin-top:14px;text-align:center;color:var(--muted)">Made with bright care — Daily Oracle</footer>
-
-    <!-- petal-wrap: petal SVGs float along their own animation paths -->
-    <div class="petal-wrap" aria-hidden="true" style="z-index:0">
-      <div class="petal p1" style="z-index:0">
-        <svg viewBox="0 0 64 64" width="100%" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M32 2 C50 10,62 28,46 46 C30 64,14 54,16 36 C18 18,24 6,32 2 Z" fill="#fde6ff" stroke="#efc8ff" stroke-width="1.2"/></svg>
-      </div>
-      <div class="petal p2" style="z-index:0">
-        <svg viewBox="0 0 64 64" width="100%" height="100"><path d="M30 4 C46 12,58 28,44 48 C30 68,14 56,16 36 C18 18,24 6,30 4 Z" fill="#ffe6f2" stroke="#ffc0df" stroke-width="1.2"/></svg>
-      </div>
-      <div class="petal p3" style="z-index:0">
-        <svg viewBox="0 0 64 64" width="100%" height="100"><path d="M34 2 C50 10,60 28,46 46 C32 64,16 54,18 36 C20 18,28 6,34 2 Z" fill="#e9e4ff" stroke="#d9c9ff" stroke-width="1.2"/></svg>
-      </div>
-      <div class="petal p4" style="z-index:0">
-        <svg viewBox="0 0 64 64" width="100%" height="100"><path d="M30 6 C48 14,60 30,46 50 C32 70,18 56,20 36 C22 18,26 8,30 6 Z" fill="#dffaf1" stroke="#b8f1dd" stroke-width="1.1"/></svg>
-      </div>
-      <div class="petal p5" style="z-index:0">
-        <svg viewBox="0 0 64 64" width="100%" height="100"><path d="M32 3 C50 10,62 28,48 48 C34 68,16 54,18 36 C20 18,24 6,32 3 Z" fill="#fff3d9" stroke="#ffe7b3" stroke-width="1.1"/></svg>
-      </div>
-    </div>
-
-    <!-- skyline: clearer Marina Bay Sands + Supertrees + Merlion -->
-    <div class="skyline-wrap" aria-hidden="true" style="z-index:0">
-      <svg class="skyline" viewBox="0 0 1000 140" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#2b2350">
-          <!-- Merlion (left) simplified but obvious: head + body + water arc -->
-          <g transform="translate(40,16) scale(0.95)">
-            <path d="M60 40 C80 30,110 26,132 36 C142 40,150 48,148 60 C144 78,128 86,110 84 C94 82,80 70,60 56 Z"/>
-            <path d="M110 84 Q130 98 158 98" stroke="#2b2350" fill="none" stroke-width="3"/>
-          </g>
-
-          <!-- Marina Bay Sands towers -->
-          <g transform="translate(340,8)">
-            <rect x="0" y="24" width="20" height="92" rx="2"/>
-            <rect x="36" y="10" width="20" height="106" rx="2"/>
-            <rect x="72" y="30" width="20" height="86" rx="2"/>
-            <!-- the boat on top -->
-            <path d="M-10 8 Q72 -18 154 8 Q152 12 -10 12 Z" fill="#2b2350" opacity="0.95"/>
-          </g>
-
-          <!-- Supertree grove (three stylized trees) -->
-          <g transform="translate(560,24)">
-            <rect x="-6" y="36" width="12" height="70" rx="3"/>
-            <path d="M0 0 C28 12,56 12,84 0 C70 30,28 30,0 0 Z" transform="translate(-42,0)"/>
-          </g>
-          <g transform="translate(640,22)">
-            <rect x="-6" y="36" width="12" height="70" rx="3"/>
-            <path d="M0 0 C28 12,56 12,84 0 C70 30,28 30,0 0 Z" transform="translate(-42,0)"/>
-          </g>
-
-          <!-- smaller towers to anchor skyline -->
-          <rect x="220" y="44" width="12" height="66" rx="2"/>
-          <rect x="200" y="34" width="18" height="76" rx="2"/>
-          <rect x="840" y="28" width="14" height="82" rx="3"/>
-        </g>
-      </svg>
-    </div>
-
   </div>
 
-<script>
-  // loads external JSON of reveals
-  const DATA_URL = './data/blessings.json';
-  let items = []; let lastIdx = null;
-
-  async function loadData(){
-    try{
-      const res = await fetch(DATA_URL + '?v=' + Date.now());
-      if(!res.ok) throw new Error('Data not found: ' + res.status);
-      items = await res.json();
-      console.log('Loaded', items.length, 'reveals');
-    } catch(e){
-      console.error(e);
-      document.getElementById('contentArea').innerHTML = '<p style="color:#b44">Could not load reveals. Create docs/data/blessings.json</p>';
-    }
-  }
-
-  function pickRandomIdx(last){
-    if(!items || items.length===0) return -1;
-    if(items.length===1) return 0;
-    let i;
-    do { i = Math.floor(Math.random()*items.length); } while(items.length>1 && i===last);
-    return i;
-  }
-
-  function renderItem(i){
-    const box = document.getElementById('contentArea');
-    box.innerHTML = '';
-    if(i < 0){ box.innerHTML = '<p style="color:var(--muted)">No reveals yet — add items to docs/data/blessings.json</p>'; return; }
-    const it = items[i];
-    if(!it){ box.innerHTML = '<p style="color:var(--muted)">Invalid item</p>'; return; }
-
-    if(it.type === 'audio'){
-      const t = document.createElement('div'); t.className='meta'; t.innerText = it.label || 'Audio Blessing';
-      const audio = document.createElement('audio'); audio.controls=true; audio.src = it.src; audio.setAttribute('playsinline',''); audio.setAttribute('preload','none');
-      box.appendChild(t); box.appendChild(audio);
-      const hint = document.createElement('div'); hint.className='meta'; hint.innerText='Tap play to listen.'; box.appendChild(hint);
-    } else if(it.type === 'image'){
-      const img = document.createElement('img'); img.src = it.src; img.alt = it.label || 'image'; img.style.maxWidth='92%'; img.style.borderRadius='12px';
-      box.appendChild(img);
-      if(it.label){ const cap = document.createElement('div'); cap.className='meta'; cap.innerText = it.label; box.appendChild(cap); }
-    } else {
-      const p = document.createElement('div'); p.className='blessing'; p.innerText = it.content || it.text || '';
-      box.appendChild(p);
-      const meta = document.createElement('div'); meta.className='meta'; meta.innerText = (it.type || 'Text').charAt(0).toUpperCase() + (it.type || 'Text').slice(1);
-      box.appendChild(meta);
-    }
-  }
-
-  document.getElementById('reveal').addEventListener('click', ()=>{
-    const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-  });
-  document.getElementById('newOne').addEventListener('click', ()=>{
-    const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-  });
-  document.getElementById('last').addEventListener('click', ()=>{ if(lastIdx!==null) renderItem(lastIdx); });
-
-  // show site url for NFC programming (computed)
-  (function(){ const site = location.origin + location.pathname.replace(/\/index\.html$/,''); const el = document.getElementById('siteurl'); if(el) el.innerText = site; })();
-
-  loadData();
-</script>
-</body>
-</html>
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="card">
+      <div class="stone-row">
+        <div class="stone-box"><div class="stone-core">ॐ</
