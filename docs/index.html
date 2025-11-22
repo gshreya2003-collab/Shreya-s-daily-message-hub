@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blessing Stone • Oracle</title>
+
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #fbfaf8;
+      --card: #ffffff;
+      --ink: #2b2430;
+      --accent: #d77e34;
+      --deep: #3a2f5a;
+      --leaf: #2a6f4a;
+      --muted: #8c8192;
+      --soft: rgba(60,40,80,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", sans-serif;
+      background:
+        radial-gradient(circle at 10% 8%, #f7f3ff 0%, var(--bg1) 42%),
+        linear-gradient(180deg, rgba(42,111,74,0.02) 0%, rgba(58,47,90,0.02) 100%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:900px;
+      margin:8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.98));
+      border-radius:18px;
+      padding:28px;
+      box-shadow: 0 18px 40px rgba(40,30,60,0.08);
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(30,20,40,0.03);
+    }
+
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .logo{
+      width:68px;height:68px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,#fffefc,#f6f1ff);
+      box-shadow: inset 0 -6px 14px rgba(0,0,0,0.03);
+      font-family:"Merriweather", serif;
+      font-size:28px;color:var(--deep);
+    }
+    h1{margin:0;font-family:"Merriweather", serif;color:var(--deep);font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .main {
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:20px;
+      align-items:start;
+    }
+
+    .panel {
+      background:var(--card);
+      border-radius:14px;
+      padding:18px;
+      box-shadow: 0 8px 26px var(--soft);
+      border:1px solid rgba(120,100,160,0.03);
+    }
+
+    /* left content */
+    .stone-area{display:flex;gap:16px;align-items:flex-start}
+    .stone-view{
+      width:150px;height:150px;border-radius:18px;
+      background:linear-gradient(180deg,#fff #f4f1ff);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow: 0 12px 30px rgba(60,40,80,0.06);
+      position:relative;
+    }
+    .stone-core{
+      width:100px;height:100px;border-radius:50%;
+      background:linear-gradient(180deg,#fbf8ff,#efe6ff);
+      display:flex;align-items:center;justify-content:center;
+      font-family:"Merriweather", serif;
+      color:var(--deep); font-weight:700; font-size:28px;
+      box-shadow: inset 0 -8px 18px rgba(0,0,0,0.03);
+    }
+
+    .controls{display:flex;gap:10px;align-items:center;margin-top:8px}
+    .btn{
+      background:var(--accent); color:#fff; padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:600;
+      box-shadow: 0 8px 22px rgba(215,120,40,0.12);
+    }
+    .btn.ghost{background:transparent;color:var(--deep);border:1px solid rgba(60,40,80,0.06);box-shadow:none}
+    .hint{font-size:12px;color:var(--muted);margin-top:10px}
+
+    /* result box */
+    #result{
+      margin-top:14px;
+      min-height:170px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
+      border:1px solid rgba(100,80,150,0.04);
+    }
+
+    .blessing {
+      font-family:"Merriweather", serif;
+      color:var(--deep);
+      font-size:20px;
+      line-height:1.5;
+      text-align:center;
+      margin:0;
+      padding:0 10px;
+    }
+    .meta{margin-top:12px;font-size:13px;color:var(--muted)}
+
+    /* audio */
+    audio{width:100%; margin-top:8px; outline:none}
+
+    /* right column */
+    .right-col { display:flex; flex-direction:column; gap:12px; }
+    .sample { padding:12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fbfbff); font-size:13px; color:var(--muted) }
+
+    .preview-img{width:100%;border-radius:10px;box-shadow:0 8px 26px rgba(30,20,50,0.06)}
+
+    footer{margin-top:14px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small screens */
+    @media (max-width:820px){
+      .main{grid-template-columns:1fr}
+      .right-col{order:2}
+      .stone-area{flex-direction:row}
+    }
+
+    /* subtle float animation */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    .stone-view{animation: floaty 6s ease-in-out infinite}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">ॐ</div>
+      <div>
+        <h1>Blessing Stone • Oracle</h1>
+        <p class="lead">Indo-Western • Singapore nature • handcrafted blessings. Tap or press “Reveal” for a curated random blessing.</p>
+      </div>
+    </header>
+
+    <div class="main">
+      <!-- LEFT -->
+      <div class="panel">
+        <div class="stone-area">
+          <div class="stone-view" aria-hidden="true">
+            <div class="stone-core">ॐ</div>
+          </div>
+
+          <div style="flex:1">
+            <div style="display:flex;gap:10px;align-items:center">
+              <button id="reveal" class="btn">Reveal Blessing</button>
+              <button id="newOne" class="btn ghost">New Blessing</button>
+              <button id="last" class="btn ghost">Show last</button>
+            </div>
+            <div class="hint">Tip: Tap your NFC stone to open this page on a phone.</div>
+
+            <div id="result" aria-live="polite">
+              <div id="contentArea">
+                <p style="color:var(--muted)">Your blessing will appear here. Audio requires a play tap on mobile.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">
+          Want custom categories or multiple languages? You can edit the items list in the code. Audio should be a direct MP3 URL.
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-col">
+        <div class="panel sample">
+          <div style="font-weight:600;margin-bottom:8px">Sample categories</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div style="padding:6px 8px;border-radius:8px;background:#fff9f2;font-size:13px">Whimsical</div>
+            <div style="padding:6px 8px;border-radius:8px;background:#f6fbf7;font-size:13px">Parijat</div>
+            <div style="padding:6px 8px;border-radius:8px;background:#f8f7ff;font-size:13px">Poem</div>
+            <div style="padding:6px 8px;border-radius:8px;background:#fff9fb;font-size:13px">Memory</div>
+            <div style="padding:6px 8px;border-radius:8px;background:#fffdf6;font-size:13px">Audio</div>
+          </div>
+          <img class="preview-img" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=4a5f0b3bd7b7b1fbe742d5f2db5a1b4f" alt="nature preview" style="margin-top:10px">
+        </div>
+
+        <div class="panel sample">
+          <div style="font-weight:600;margin-bottom:8px">Quick tips</div>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);font-size:13px">
+            <li>Host audio on Dropbox/Netlify/S3 or use Google Drive direct-download links.</li>
+            <li>Edit the <code>items</code> array in the script to add/remove blessings.</li>
+            <li>iPhone blocks autoplay — user must tap the play button for audio.</li>
+          </ul>
+        </div>
+
+        <div class="panel sample" style="text-align:center">
+          <div style="font-weight:600">Site URL</div>
+          <div style="margin-top:6px;color:var(--muted);font-size:13px">Use this as your NFC tag URL once live</div>
+          <div id="siteurl" style="margin-top:8px;font-weight:600;color:var(--deep)"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Made for your Blessing Stone • Edit items in the code to personalise content.</footer>
+  </div>
+
+  <script>
+    /* =============
+       EDIT THE ITEMS ARRAY BELOW
+       Supported types: text, fortune, poem, quote, memory, audio, image
+       For audio/image use direct absolute URLs (MP3/JPG)
+       Example audio via Google Drive direct link:
+       https://docs.google.com/uc?export=download&id=FILEID
+    ============= */
+    const items = [
+      { type: "fortune", content: "A small kindness you send out will return to you twice over." },
+      { type: "poem", content: "A parijat night, soft as a hush —\nyou gather small lights into your palm." },
+      { type: "quote", content: "‘Courage blooms quietly, like a secret flower.’" },
+      { type: "text", content: "A calm moment will arrive today; breathe into its edges." },
+      { type: "memory", content: "Remember the walk by the reservoir — let its stillness re-find you." },
+      // audio entry example (replace FILEID)
+      // { type: "audio", src: "https://docs.google.com/uc?export=download&id=YOUR_FILEID", label: "A gentle blessing (audio)" },
+      // image example
+      // { type: "image", src: "https://yourhost.com/path/petal.jpg", label: "Parijat petal" },
+      // add many more items — they will all be chosen at random
+    ];
+
+    // pick random but ensure not same as last
+    function pickRandomIdx(lastIdx){
+      if(items.length===0) return -1;
+      if(items.length===1) return 0;
+      let i;
+      do { i = Math.floor(Math.random()*items.length); } while(i===lastIdx);
+      return i;
+    }
+
+    let lastIdx = null;
+
+    function renderItem(i){
+      const box = document.getElementById('contentArea');
+      box.innerHTML = '';
+      if(i < 0) { box.innerHTML = '<p style="color:var(--muted)">No blessings yet — add some in the items array.</p>'; return; }
+      const it = items[i];
+      if(it.type === 'audio'){
+        const title = document.createElement('div');
+        title.className = 'meta';
+        title.innerText = it.label || 'A voice blessing';
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = it.src;
+        audio.setAttribute('playsinline','');
+        audio.setAttribute('preload','none');
+        box.appendChild(title);
+        box.appendChild(audio);
+        const hint = document.createElement('div');
+        hint.className = 'meta';
+        hint.innerText = 'Tap play to hear the blessing.';
+        box.appendChild(hint);
+      } else if(it.type === 'image'){
+        const img = document.createElement('img');
+        img.src = it.src;
+        img.alt = it.label || 'image blessing';
+        img.style.maxWidth='90%';
+        img.style.borderRadius='10px';
+        box.appendChild(img);
+        if(it.label){
+          const cap = document.createElement('div');
+          cap.className='meta';
+          cap.innerText = it.label;
+          box.appendChild(cap);
+        }
+      } else {
+        const p = document.createElement('p');
+        p.className = 'blessing';
+        p.innerText = it.content;
+        box.appendChild(p);
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.innerText = it.type.charAt(0).toUpperCase() + it.type.slice(1);
+        box.appendChild(meta);
+      }
+    }
+
+    // buttons
+    document.getElementById('reveal').addEventListener('click', () => {
+      const idx = pickRandomIdx(lastIdx);
+      lastIdx = idx;
+      renderItem(idx);
+    });
+    document.getElementById('newOne').addEventListener('click', () => {
+      const idx = pickRandomIdx(lastIdx);
+      lastIdx = idx;
+      renderItem(idx);
+    });
+    document.getElementById('last').addEventListener('click', () => {
+      if(lastIdx !== null) renderItem(lastIdx);
+    });
+
+    // set site url display
+    (function(){
+      const site = location.origin + location.pathname.replace(/\/index\.html$/, '');
+      document.getElementById('siteurl').innerText = site;
+    })();
+
+    // auto reveal on NFC open (optional): if you want the page to auto show a blessing when opened,
+    // uncomment the following line (note: mobile browsers may block any audio autoplay)
+    // window.addEventListener('load', ()=> document.getElementById('reveal').click());
+
+  </script>
+</body>
+</html>
