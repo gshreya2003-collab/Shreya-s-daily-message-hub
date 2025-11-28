@@ -3,243 +3,198 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Daily Oracle — Blessing Stone</title>
+<title>Daily Oracle</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --bg-a: #C9D7FF;  /* soft blue */
-    --bg-b: #FDE2FF;  /* soft pink */
-    --bg-c: #F5E4FF;  /* lavender */
-    --card-bg: rgba(255,255,255,0.92);
+    --bg-a: #C9D7FF;
+    --bg-b: #FDE2FF;
+    --bg-c: #F5E4FF;
+    --card-bg: rgba(255,255,255,0.9);
     --ink: #2b2430;
     --muted:#6e6470;
     --accent: #7A5CFF;
-    --max-width: 900px;
   }
-  html,body{height:100%;margin:0;font-family:Nunito,system-ui,-apple-system,Arial;color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  html,body{
+    height:100%; margin:0;
+    font-family:Nunito, sans-serif;
+    color:var(--ink);
+  }
+
   body{
     background: linear-gradient(180deg,var(--bg-a),var(--bg-b),var(--bg-c));
-    display:flex;align-items:center;justify-content:center;padding:20px;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
   }
 
-  /* page container */
   .wrap{
-    width:100%; max-width:var(--max-width);
-    border-radius:16px; overflow:visible;
+    width:100%;
+    max-width:900px;
+    background:rgba(255,255,255,0.05);
+    border-radius:16px;
+    backdrop-filter: blur(6px);
+    padding:26px;
+    box-shadow:0 30px 80px rgba(50,40,90,0.2);
     position:relative;
-    min-height:70vh;
-    box-shadow: 0 30px 70px rgba(30,20,60,0.12);
-    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    padding:28px;
-    box-sizing:border-box;
   }
 
-  /* sparkles layer (absolute) */
-  .sparkles {
-    position:absolute; inset:0; pointer-events:none; z-index:1; overflow:visible;
+  /* sparkles */
+  .sparkles{
+    position:absolute; inset:0;
+    pointer-events:none; z-index:1;
   }
-  .sparkle {
-    position:absolute; width:12px; height:12px; border-radius:50%;
-    background: rgba(255,255,255,0.85); box-shadow:0 0 12px rgba(255,255,255,0.7);
-    opacity:0; transform: translateY(0) scale(.6);
-  }
-  /* generate different sizes using classes */
-  .s--small{width:8px;height:8px}
-  .s--mid{width:12px;height:12px}
-  .s--big{width:18px;height:18px}
 
-  /* gentle float + fade animation for sparkles */
+  .sparkle{
+    position:absolute; border-radius:50%;
+    background:white;
+    opacity:0;
+  }
+
   @keyframes sparkleFloat {
-    0% { transform: translateY(0) scale(.85); opacity:0; }
-    10% { opacity:0.9; }
-    50% { transform: translateY(-26px) scale(1.05); opacity:0.7; }
-    90% { opacity:0.0; }
-    100% { transform: translateY(-40px) scale(.9); opacity:0; }
+    0%{transform:translateY(0) scale(.7); opacity:0;}
+    20%{opacity:1;}
+    50%{transform:translateY(-28px) scale(1);}
+    100%{opacity:0;}
   }
 
-  /* content centre */
-  .content {
+  .content{
     position:relative; z-index:3;
-    display:flex; flex-direction:column; align-items:center; gap:18px;
-    text-align:center; padding:28px;
+    text-align:center;
   }
 
-  .logo {
-    font-family: "Playfair Display", serif;
-    font-size:30px; font-weight:700; color:var(--accent);
-    background: var(--card-bg);
-    padding:12px 18px; border-radius:12px;
-    box-shadow: 0 10px 30px rgba(40,30,80,0.06);
+  .logo{
+    font-family:"Playfair Display",serif;
+    font-size:32px;
+    color:var(--accent);
+    margin-bottom:10px;
   }
 
-  .subtitle { color:var(--muted); font-size:14px; max-width:72%; margin:0 auto; }
+  .subtitle{
+    font-size:14px;
+    color:var(--muted);
+    margin-top:-6px;
+    margin-bottom:18px;
+  }
 
-  /* message card */
-  .message-card {
-    margin-top:6px;
-    background: var(--card-bg);
+  .message-card{
+    background:var(--card-bg);
     border-radius:14px;
-    padding:18px 20px;
-    box-shadow: 0 18px 46px rgba(30,20,60,0.06);
-    max-width:720px; width:100%;
+    padding:20px;
+    margin:0 auto;
+    max-width:600px;
+    box-shadow:0 18px 40px rgba(40,20,60,0.1);
   }
-  .message-text {
-    font-family: "Playfair Display", serif;
-    font-size:20px; line-height:1.5; color:var(--ink);
-    margin:0;
-    white-space:pre-wrap;
-  }
-  .meta { margin-top:10px; color:var(--muted); font-size:13px; }
 
-  /* small "another" button if you want */
-  .controls { margin-top:12px; display:flex; gap:10px; justify-content:center; }
-  .btn {
+  .message-text{
+    font-family:"Playfair Display",serif;
+    font-size:20px;
+    line-height:1.5;
+  }
+
+  .meta{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+
+  .btn{
+    margin-top:14px;
     background: linear-gradient(180deg,var(--accent), #ff77c7);
-    color:white; padding:10px 14px; border-radius:12px; border:0; font-weight:700; cursor:pointer;
-    box-shadow: 0 10px 30px rgba(120,80,200,0.12);
+    border:0; 
+    color:white; 
+    padding:10px 16px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:14px;
+    box-shadow:0 10px 25px rgba(100,50,200,0.2);
   }
-  .btn--ghost { background:transparent; border:1px solid rgba(30,20,40,0.06); color:var(--ink) }
 
-  /* small footnote */
-  .foot { margin-top:12px; font-size:12px; color:var(--muted) }
-
-  /* responsive */
-  @media (max-width:640px){
-    .wrap{ padding:18px; border-radius:12px; min-height:60vh }
-    .message-text{ font-size:18px }
-    .subtitle{ max-width:90% }
-    .logo{ font-size:26px }
+  @media(max-width:600px){
+    .message-text{font-size:18px;}
+    .logo{font-size:28px;}
   }
 </style>
 </head>
+
 <body>
-  <div class="wrap" role="main" aria-live="polite">
-    <div class="sparkles" id="sparkles"></div>
+<div class="wrap">
+  <div class="sparkles" id="sparkles"></div>
 
-    <div class="content">
-      <div class="logo">DAILY ORACLE</div>
-      <p class="subtitle">Tap your blessing stone — a message will appear as the page opens.</p>
+  <div class="content">
+    <div class="logo">DAILY ORACLE</div>
+    <div class="subtitle">A message appears each time you tap your pendant.</div>
 
-      <div class="message-card" id="messageCard" aria-live="polite" aria-atomic="true">
-        <div class="message-text" id="messageText">Loading your message…</div>
-        <div class="meta" id="metaText"></div>
-      </div>
-
-      <div class="controls">
-        <button class="btn" id="anotherBtn">Show another</button>
-        <button class="btn btn--ghost" id="shareBtn">Copy URL</button>
-      </div>
-
-      <div class="foot">Tip: program your NFC tag to open this page. Each tap shows a new, random message.</div>
+    <div class="message-card">
+      <div class="message-text" id="messageText">Loading...</div>
+      <div class="meta" id="metaText"></div>
     </div>
+
+    <button class="btn" id="anotherBtn">Show Another</button>
   </div>
+</div>
 
 <script>
-/*
- Behavior:
- - On page load, try to fetch messages from /data/blessings.json (expected: ["msg1","msg2",...])
- - If fetch succeeds, pick one random message and show immediately.
- - If fetch fails (no JSON present), fall back to small built-in array.
- - 'Show another' picks a new random message without needing reload.
- - Sparkles are purely CSS/JS placed elements animated with staggered time.
-*/
+/* YOUR GOOGLE WEB APP URL */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwGIgcHuKewvRfGCWb7S60e3NpmhmvGEpqjMvBhOsFXRxfJpv57MVbDRNWk0DKXeAgH/exec";
 
-// Helper: show message
-function showMessage(text, idx, total){
-  document.getElementById('messageText').innerText = text || 'No message found.';
-  document.getElementById('metaText').innerText = total ? `Message ${idx+1} of ${total}` : '';
+/* sparkle generator */
+function makeSparkles(count=18){
+  const box = document.getElementById("sparkles");
+  box.innerHTML="";
+  for(let i=0;i<count;i++){
+    const s = document.createElement("div");
+    s.className="sparkle";
+    const size = 8 + Math.random()*14;
+    s.style.width=size+"px";
+    s.style.height=size+"px";
+    s.style.left=(Math.random()*100)+"%";
+    s.style.top=(Math.random()*100)+"%";
+    s.style.opacity="0";
+    const dur = (3+Math.random()*3).toFixed(2);
+    const delay = (Math.random()*2).toFixed(2);
+    s.style.animation=`sparkleFloat ${dur}s ease-in-out ${delay}s infinite`;
+    box.appendChild(s);
+  }
 }
 
-// Random index
-function randInt(max){ return Math.floor(Math.random() * max); }
-
-// Load messages (try external JSON then fallback)
-let MESSAGES = [
-  "May your steps today be gentle and sure.",
-  "A small kindness will bring an unexpected joy.",
-  "Listen to the quiet — it holds your next hint.",
-  "Your patience plants the seed for something bright."
-];
+/* message handling */
+let MESSAGES=[];
 
 async function loadMessages(){
   try{
-    const res = await fetch('./data/blessings.json?cache=' + Date.now());
-    if(!res.ok) throw new Error('no json');
+    const res = await fetch(SHEET_URL + "?cache=" + Date.now());
     const data = await res.json();
-    // Accept either array of strings, or object with values array
-    if(Array.isArray(data) && data.length>0){
-      MESSAGES = data;
-    } else if(data && Array.isArray(data.values) && data.values.length>0){
-      // in case Google Sheets published format
-      MESSAGES = data.values.flat();
-    } else {
-      console.warn('JSON found but not in expected format. Using fallback messages.');
+    if(Array.isArray(data)){
+      MESSAGES=data;
     }
-  }catch(e){
-    // fallback remains
-    console.info('No external blessings.json found — using built-in messages.');
+  } catch(e){
+    MESSAGES=["Unable to load messages."];
   }
 }
 
-// Pick and display a random message
-function pickAndShow(){
-  if(!MESSAGES || MESSAGES.length===0) {
-    showMessage("No messages available.");
+function pickMessage(){
+  if(!MESSAGES || MESSAGES.length===0){
+    document.getElementById("messageText").innerText="No messages available.";
     return;
   }
-  const idx = randInt(MESSAGES.length);
-  showMessage(MESSAGES[idx], idx, MESSAGES.length);
+  const i=Math.floor(Math.random()*MESSAGES.length);
+  document.getElementById("messageText").innerText=MESSAGES[i];
+  document.getElementById("metaText").innerText=`Message ${i+1} of ${MESSAGES.length}`;
 }
 
-// "Another" button behaviour
-document.getElementById('anotherBtn').addEventListener('click', ()=>{
-  pickAndShow();
-  // add small pulse to card
-  const c = document.getElementById('messageCard');
-  c.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}], {duration:280});
+/* init */
+window.addEventListener("DOMContentLoaded", async ()=>{
+  makeSparkles();
+  await loadMessages();
+  pickMessage();
 });
 
-// copy URL (useful for NFC testing)
-document.getElementById('shareBtn').addEventListener('click', async ()=>{
-  try{
-    await navigator.clipboard.writeText(location.href);
-    const old = document.getElementById('metaText').innerText;
-    document.getElementById('metaText').innerText = 'URL copied to clipboard';
-    setTimeout(()=>document.getElementById('metaText').innerText = old, 1500);
-  }catch(e){ alert('Could not copy URL'); }
-});
-
-// generate sparkles (positions + animation delays randomized)
-function makeSparkles(count=20){
-  const wrap = document.getElementById('sparkles');
-  wrap.innerHTML = '';
-  for(let i=0;i<count;i++){
-    const s = document.createElement('div');
-    s.className = 'sparkle ' + (i%3===0 ? 's--big' : (i%2 ? 's--mid' : 's--small'));
-    // random position within the wrap
-    const left = Math.random() * 98;
-    const top = Math.random() * 62; // keep sparkles mainly in upper area
-    s.style.left = left + '%';
-    s.style.top = top + '%';
-    // random animation delay & duration
-    const dur = (3.5 + Math.random()*3).toFixed(2) + 's';
-    const delay = (Math.random()*2).toFixed(2) + 's';
-    s.style.animation = `sparkleFloat ${dur} ease-in-out ${delay} infinite`;
-    // subtle color variations (white, very pale pink, pale lavender)
-    const tone = Math.random();
-    if(tone < 0.28) s.style.background = 'rgba(255,255,255,0.95)';
-    else if(tone < 0.6) s.style.background = 'rgba(255,240,250,0.95)';
-    else s.style.background = 'rgba(245,240,255,0.95)';
-    wrap.appendChild(s);
-  }
-}
-
-// initialize on load
-window.addEventListener('DOMContentLoaded', async ()=>{
-  makeSparkles(18);               // create sparkles
-  await loadMessages();           // try loading external JSON
-  pickAndShow();                  // show one immediately
-});
+document.getElementById("anotherBtn").addEventListener("click", pickMessage);
 </script>
+
 </body>
 </html>
