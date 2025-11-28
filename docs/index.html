@@ -4,302 +4,242 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Daily Oracle — Blessing Stone</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --bg1:#f5f7ff;
-  --bg2:#fdf4ff;
-  --blue:#4f6ef7;
-  --pink:#ff6fb5;
-  --purple:#8c6bff;
-  --ink:#2b2430;
-  --muted:#6e6470;
-  --card:#ffffff;
-  --shadow:0 22px 44px rgba(45,36,80,0.09);
-}
+  :root{
+    --bg-a: #C9D7FF;  /* soft blue */
+    --bg-b: #FDE2FF;  /* soft pink */
+    --bg-c: #F5E4FF;  /* lavender */
+    --card-bg: rgba(255,255,255,0.92);
+    --ink: #2b2430;
+    --muted:#6e6470;
+    --accent: #7A5CFF;
+    --max-width: 900px;
+  }
+  html,body{height:100%;margin:0;font-family:Nunito,system-ui,-apple-system,Arial;color:var(--ink);-webkit-font-smoothing:antialiased}
+  body{
+    background: linear-gradient(180deg,var(--bg-a),var(--bg-b),var(--bg-c));
+    display:flex;align-items:center;justify-content:center;padding:20px;
+  }
 
-/* ---------- base ---------- */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:"Nunito",system-ui,Arial;color:var(--ink);-webkit-font-smoothing:antialiased}
-body{background:linear-gradient(180deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center;padding:16px;min-height:100vh}
+  /* page container */
+  .wrap{
+    width:100%; max-width:var(--max-width);
+    border-radius:16px; overflow:visible;
+    position:relative;
+    min-height:70vh;
+    box-shadow: 0 30px 70px rgba(30,20,60,0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    padding:28px;
+    box-sizing:border-box;
+  }
 
-/* wrapper */
-.wrap{
-  width:100%;max-width:980px;border-radius:16px;padding:16px;background:rgba(255,255,255,0.98);
-  box-shadow:var(--shadow);position:relative;overflow:visible;
-}
+  /* sparkles layer (absolute) */
+  .sparkles {
+    position:absolute; inset:0; pointer-events:none; z-index:1; overflow:visible;
+  }
+  .sparkle {
+    position:absolute; width:12px; height:12px; border-radius:50%;
+    background: rgba(255,255,255,0.85); box-shadow:0 0 12px rgba(255,255,255,0.7);
+    opacity:0; transform: translateY(0) scale(.6);
+  }
+  /* generate different sizes using classes */
+  .s--small{width:8px;height:8px}
+  .s--mid{width:12px;height:12px}
+  .s--big{width:18px;height:18px}
 
-/* header */
-.header{display:flex;gap:12px;align-items:center;margin-bottom:10px}
-.logo{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#f5faff);font-family:"Playfair Display";font-size:28px;color:var(--purple);box-shadow:inset 0 -8px 18px rgba(0,0,0,0.03)}
-.title h1{margin:0;font-family:"Playfair Display";font-size:20px;color:var(--blue)}
-.title p{margin:0;color:var(--muted);font-size:13px}
+  /* gentle float + fade animation for sparkles */
+  @keyframes sparkleFloat {
+    0% { transform: translateY(0) scale(.85); opacity:0; }
+    10% { opacity:0.9; }
+    50% { transform: translateY(-26px) scale(1.05); opacity:0.7; }
+    90% { opacity:0.0; }
+    100% { transform: translateY(-40px) scale(.9); opacity:0; }
+  }
 
-/* grid */
-.grid{display:grid;grid-template-columns:1fr 300px;gap:14px}
-@media(max-width:820px){ .grid{grid-template-columns:1fr} }
+  /* content centre */
+  .content {
+    position:relative; z-index:3;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    text-align:center; padding:28px;
+  }
 
-/* card */
-.card{background:var(--card);border-radius:12px;padding:12px;border:1px solid rgba(50,40,80,0.03);box-shadow:0 10px 28px rgba(20,15,40,0.03)}
+  .logo {
+    font-family: "Playfair Display", serif;
+    font-size:30px; font-weight:700; color:var(--accent);
+    background: var(--card-bg);
+    padding:12px 18px; border-radius:12px;
+    box-shadow: 0 10px 30px rgba(40,30,80,0.06);
+  }
 
-/* stone / controls */
-.stone-row{display:flex;gap:12px;align-items:flex-start}
-.stone-box{width:120px;height:120px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:0 12px 30px rgba(40,30,80,0.06)}
-.stone-core{width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff6ff,#fff0fb);font-family:"Playfair Display";font-size:26px;color:var(--pink);font-weight:700}
+  .subtitle { color:var(--muted); font-size:14px; max-width:72%; margin:0 auto; }
 
-/* buttons */
-.controls{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:10px;padding:9px 12px;font-weight:800;color:white;cursor:pointer;background:linear-gradient(180deg,var(--blue),#3b5cf0);box-shadow:0 10px 26px rgba(79,110,247,0.12)}
-.btn.pink{background:linear-gradient(180deg,var(--pink),#ff4d9a);box-shadow:0 10px 26px rgba(255,111,181,0.12)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid rgba(60,40,70,0.08)}
+  /* message card */
+  .message-card {
+    margin-top:6px;
+    background: var(--card-bg);
+    border-radius:14px;
+    padding:18px 20px;
+    box-shadow: 0 18px 46px rgba(30,20,60,0.06);
+    max-width:720px; width:100%;
+  }
+  .message-text {
+    font-family: "Playfair Display", serif;
+    font-size:20px; line-height:1.5; color:var(--ink);
+    margin:0;
+    white-space:pre-wrap;
+  }
+  .meta { margin-top:10px; color:var(--muted); font-size:13px; }
 
-/* result */
-#result{margin-top:12px;min-height:170px;padding:14px;border-radius:10px;background:linear-gradient(180deg,#fff,#fffdfc);border:1px solid rgba(200,180,220,0.03)}
-.blessing{font-family:"Playfair Display";font-size:18px;text-align:center;white-space:pre-wrap;margin:0;padding:0 6px}
-.meta{margin-top:10px;color:var(--muted);font-size:13px}
+  /* small "another" button if you want */
+  .controls { margin-top:12px; display:flex; gap:10px; justify-content:center; }
+  .btn {
+    background: linear-gradient(180deg,var(--accent), #ff77c7);
+    color:white; padding:10px 14px; border-radius:12px; border:0; font-weight:700; cursor:pointer;
+    box-shadow: 0 10px 30px rgba(120,80,200,0.12);
+  }
+  .btn--ghost { background:transparent; border:1px solid rgba(30,20,40,0.06); color:var(--ink) }
 
-/* aside */
-.aside{display:flex;flex-direction:column;gap:10px}
-.motif h3{margin:0;font-family:"Playfair Display";font-size:15px}
-.motif p{margin:0;color:var(--muted);font-size:13px}
+  /* small footnote */
+  .foot { margin-top:12px; font-size:12px; color:var(--muted) }
 
-/* ---------- PETALS: smaller & drifting ---------- */
-.petal-wrap{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:2}
-.petal{position:absolute;width:44px;height:44px;opacity:0;transform-origin:center;will-change:transform,opacity;filter:drop-shadow(0 8px 18px rgba(30,20,60,0.08))}
-@media(max-width:520px){ .petal{width:32px;height:32px} }
-
-/* three drift keyframes (curved) */
-@keyframes driftA{0%{transform:translate(0,0) rotate(0)}25%{transform:translate(18px,-28px) rotate(8deg)}50%{transform:translate(-20px,-54px) rotate(-6deg)}75%{transform:translate(-8px,-26px) rotate(14deg)}100%{transform:translate(0,0) rotate(0)}}
-@keyframes driftB{0%{transform:translate(0,0) rotate(0)}30%{transform:translate(-32px,-20px) rotate(-12deg)}60%{transform:translate(-6px,-46px) rotate(6deg)}100%{transform:translate(0,0) rotate(0)}}
-@keyframes driftC{0%{transform:translate(0,0) rotate(0)}30%{transform:translate(30px,-26px) rotate(12deg)}60%{transform:translate(50px,-8px) rotate(-10deg)}100%{transform:translate(0,0) rotate(0)}}
-
-.petal[data-anim="A"]{animation:driftA 11s ease-in-out infinite}
-.petal[data-anim="B"]{animation:driftB 12.5s ease-in-out infinite}
-.petal[data-anim="C"]{animation:driftC 10.8s ease-in-out infinite}
-
-/* layering: petals behind the main grid but above skyline (z-index) */
-.wrap .petal-wrap{z-index:3}
-.wrap .grid{position:relative;z-index:6}
-.wrap .skyline-wrap{z-index:1}
-
-/* ---------- SKYLINE: reduced scale so it isn't dominant ---------- */
-.skyline-wrap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;pointer-events:none;padding-bottom:6px;z-index:1}
-.skyline{width:92%;max-width:980px;height:82px;opacity:0.95}
-@media(max-width:520px){ .skyline{height:64px} }
-
-/* ensure responsive: allow content scroll if needed (avoid cutoff) */
-.wrap{max-width:98vw}
-@media(max-height:600px){ body{align-items:flex-start;padding-top:26px;padding-bottom:26px} }
+  /* responsive */
+  @media (max-width:640px){
+    .wrap{ padding:18px; border-radius:12px; min-height:60vh }
+    .message-text{ font-size:18px }
+    .subtitle{ max-width:90% }
+    .logo{ font-size:26px }
+  }
 </style>
 </head>
-
 <body>
   <div class="wrap" role="main" aria-live="polite">
-    <div class="header">
-      <div class="logo">ॐ</div>
-      <div class="title">
-        <h1>Daily Oracle</h1>
-        <p>Blue • Pink • Purple • Cute • Singapore</p>
+    <div class="sparkles" id="sparkles"></div>
+
+    <div class="content">
+      <div class="logo">DAILY ORACLE</div>
+      <p class="subtitle">Tap your blessing stone — a message will appear as the page opens.</p>
+
+      <div class="message-card" id="messageCard" aria-live="polite" aria-atomic="true">
+        <div class="message-text" id="messageText">Loading your message…</div>
+        <div class="meta" id="metaText"></div>
       </div>
+
+      <div class="controls">
+        <button class="btn" id="anotherBtn">Show another</button>
+        <button class="btn btn--ghost" id="shareBtn">Copy URL</button>
+      </div>
+
+      <div class="foot">Tip: program your NFC tag to open this page. Each tap shows a new, random message.</div>
     </div>
-
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="card">
-        <div class="stone-row">
-          <div class="stone-box"><div class="stone-core">ॐ</div></div>
-
-          <div style="flex:1">
-            <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
-              <div>
-                <div style="font-weight:800;color:var(--ink);font-size:14px">Your Daily Oracle</div>
-                <div style="color:var(--muted);font-size:13px;margin-top:6px">Tap Reveal to draw a blessing.</div>
-              </div>
-
-              <div class="controls">
-                <button id="reveal" class="btn">Reveal</button>
-                <button id="newOne" class="btn pink">Another</button>
-                <button id="last" class="btn ghost">Last</button>
-              </div>
-            </div>
-
-            <div id="result">
-              <div id="contentArea"><p style="color:var(--muted)">Tap <strong>Reveal</strong>.</p></div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT -->
-      <aside class="aside">
-        <div class="card motif">
-          <h3>Design</h3>
-          <p>Drifting petals • subtle Singapore skyline • bright palette.</p>
-        </div>
-
-        <div class="card motif">
-          <h3>Reveals</h3>
-          <p>Loaded from <code>docs/data/blessings.json</code>.</p>
-        </div>
-
-        <div class="card motif" style="text-align:center">
-          <h3>URL</h3>
-          <div id="siteurl" style="font-weight:700;color:var(--ink);margin-top:8px"></div>
-        </div>
-      </aside>
-    </div>
-
-    <!-- Petals: smaller, responsive, will be animated by JS -->
-    <div class="petal-wrap" aria-hidden="true">
-      <div class="petal" data-anim="A">
-        <svg viewBox="0 0 64 64"><path d="M32 2 C50 10,62 28,46 46 C30 64,14 54,16 36 C18 18,24 6,32 2 Z" fill="#fde6ff" stroke="#efc8ff" stroke-width="1.0"/></svg>
-      </div>
-      <div class="petal" data-anim="B">
-        <svg viewBox="0 0 64 64"><path d="M30 4 C46 12,58 28,44 48 C30 68,14 56,16 36 C18 18,24 6,30 4 Z" fill="#ffe6f2" stroke="#ffc0df" stroke-width="1.0"/></svg>
-      </div>
-      <div class="petal" data-anim="C">
-        <svg viewBox="0 0 64 64"><path d="M34 2 C50 10,60 28,46 46 C32 64,16 54,18 36 C20 18,28 6,34 2 Z" fill="#e9e4ff" stroke="#d9c9ff" stroke-width="1.0"/></svg>
-      </div>
-      <div class="petal" data-anim="A">
-        <svg viewBox="0 0 64 64"><path d="M30 6 C48 14,60 30,46 50 C32 70,18 56,20 36 C22 18,26 8,30 6 Z" fill="#dffaf1" stroke="#b8f1dd" stroke-width="1.0"/></svg>
-      </div>
-      <div class="petal" data-anim="B">
-        <svg viewBox="0 0 64 64"><path d="M32 3 C50 10,62 28,48 48 C34 68,16 54,18 36 C20 18,24 6,32 3 Z" fill="#fff3d9" stroke="#ffe7b3" stroke-width="1.0"/></svg>
-      </div>
-    </div>
-
-    <!-- Singapore skyline (reduced) -->
-    <div class="skyline-wrap" aria-hidden="true">
-      <svg class="skyline" viewBox="0 0 1000 140" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#2b2350">
-          <!-- Merlion (left) -->
-          <path d="M62 48 C82 36,112 32,132 42 C142 46,150 54,146 66 C140 86,122 94,104 92 C88 90,72 76,62 48 Z"/>
-          <path d="M104 92 Q126 106 154 106" stroke="#2b2350" fill="none" stroke-width="3"/>
-          <!-- Marina Bay Sands (center) -->
-          <rect x="360" y="44" width="18" height="76" rx="2"/>
-          <rect x="388" y="26" width="18" height="94" rx="2"/>
-          <rect x="416" y="50" width="18" height="70" rx="2"/>
-          <path d="M330 28 Q416 -6 502 28 Q500 32 330 32 Z" fill="#2b2350"/>
-          <!-- Supertrees -->
-          <g transform="translate(620,40)">
-            <rect x="-6" y="36" width="12" height="68" rx="3"/>
-            <path d="M0 0 C28 12,56 12,84 0 C70 30,28 30,0 0 Z" transform="translate(-42,0)"/>
-          </g>
-          <g transform="translate(690,38)">
-            <rect x="-6" y="36" width="12" height="68" rx="3"/>
-            <path d="M0 0 C28 12,56 12,84 0 C70 30,28 30,0 0 Z" transform="translate(-42,0)"/>
-          </g>
-        </g>
-      </svg>
-    </div>
-
   </div>
 
 <script>
-/* ---------- PETAL MOTION: randomized start positions + timings ---------- */
-(function(){
-  const petals = Array.from(document.querySelectorAll('.petal'));
-  if(!petals.length) return;
+/*
+ Behavior:
+ - On page load, try to fetch messages from /data/blessings.json (expected: ["msg1","msg2",...])
+ - If fetch succeeds, pick one random message and show immediately.
+ - If fetch fails (no JSON present), fall back to small built-in array.
+ - 'Show another' picks a new random message without needing reload.
+ - Sparkles are purely CSS/JS placed elements animated with staggered time.
+*/
 
-  petals.forEach((el, idx) => {
-    // randomized starting left/top (in upper region)
-    const left = (5 + Math.random()*88).toFixed(2) + '%';
-    const top  = (2 + Math.random()*16).toFixed(2) + '%';
-    el.style.left = left;
-    el.style.top  = top;
+// Helper: show message
+function showMessage(text, idx, total){
+  document.getElementById('messageText').innerText = text || 'No message found.';
+  document.getElementById('metaText').innerText = total ? `Message ${idx+1} of ${total}` : '';
+}
 
-    // randomize animation assignment if not set
-    const anim = el.dataset.anim || ['A','B','C'][Math.floor(Math.random()*3)];
-    el.dataset.anim = anim;
+// Random index
+function randInt(max){ return Math.floor(Math.random() * max); }
 
-    // randomize duration & delay
-    const baseDur = anim === 'B' ? 12.5 : (anim === 'C' ? 10.8 : 11.0);
-    const dur = (baseDur + (Math.random()*3 - 1.5)).toFixed(2) + 's'; // +/- 1.5s
-    const delay = (-Math.random()*6).toFixed(2) + 's';
-    el.style.animationDuration = dur;
-    el.style.animationDelay = delay;
+// Load messages (try external JSON then fallback)
+let MESSAGES = [
+  "May your steps today be gentle and sure.",
+  "A small kindness will bring an unexpected joy.",
+  "Listen to the quiet — it holds your next hint.",
+  "Your patience plants the seed for something bright."
+];
 
-    // fade-in
-    el.style.opacity = 0;
-    setTimeout(()=>{ el.style.transition = 'opacity 600ms ease'; el.style.opacity = 0.98; }, 100 + idx*80);
-  });
-
-  // gentle horizontal wander over long intervals to avoid looped feeling
-  function wander(){
-    petals.forEach(el=>{
-      const cur = parseFloat(el.style.left) || 50;
-      const delta = (Math.random()*6 - 3); // -3..+3 percent
-      const next = Math.max(2, Math.min(94, cur + delta));
-      el.style.transition = 'left ' + (8 + Math.random()*8).toFixed(1) + 's ease-in-out';
-      el.style.left = next + '%';
-    });
-    setTimeout(wander, 9000 + Math.random()*8000);
-  }
-  setTimeout(wander, 5000);
-})();
-
-/* ---------- DAILY ORACLE logic (loads JSON file) ---------- */
-const DATA_URL = './data/blessings.json';
-let items = []; let lastIdx = null;
-
-async function loadData(){
+async function loadMessages(){
   try{
-    const res = await fetch(DATA_URL + '?v=' + Date.now());
-    if(!res.ok) throw new Error('data not found ' + res.status);
-    items = await res.json();
-    console.log('Loaded', items.length, 'items');
-  } catch(e){
-    console.error(e);
-    const box = document.getElementById('contentArea');
-    if(box) box.innerHTML = '<p style="color:#b44">Could not load docs/data/blessings.json</p>';
-  }
-}
-loadData();
-
-function pickRandomIdx(last){
-  if(!items || items.length === 0) return -1;
-  if(items.length === 1) return 0;
-  let i;
-  do { i = Math.floor(Math.random()*items.length); } while(i === last);
-  return i;
-}
-
-function renderItem(i){
-  const box = document.getElementById('contentArea');
-  box.innerHTML = '';
-  if(i < 0){ box.innerHTML = '<p style="color:var(--muted)">No items yet.</p>'; return; }
-  const it = items[i];
-  if(!it){ box.innerHTML = '<p style="color:var(--muted)">Invalid item</p>'; return; }
-
-  if(it.type === 'audio'){
-    const t = document.createElement('div'); t.className = 'meta'; t.innerText = it.label || 'Audio';
-    const audio = document.createElement('audio'); audio.controls = true; audio.src = it.src; audio.setAttribute('playsinline',''); audio.setAttribute('preload','none');
-    box.appendChild(t); box.appendChild(audio);
-  } else if(it.type === 'image'){
-    const img = document.createElement('img'); img.src = it.src; img.alt = it.label || 'image'; img.style.maxWidth = '92%'; img.style.borderRadius = '10px';
-    box.appendChild(img);
-    if(it.label){ const cap = document.createElement('div'); cap.className = 'meta'; cap.innerText = it.label; box.appendChild(cap); }
-  } else {
-    const p = document.createElement('div'); p.className = 'blessing'; p.innerText = it.content || it.text || '';
-    box.appendChild(p);
-    const meta = document.createElement('div'); meta.className = 'meta'; meta.innerText = (it.type || 'Text').charAt(0).toUpperCase() + (it.type || 'Text').slice(1);
-    box.appendChild(meta);
+    const res = await fetch('./data/blessings.json?cache=' + Date.now());
+    if(!res.ok) throw new Error('no json');
+    const data = await res.json();
+    // Accept either array of strings, or object with values array
+    if(Array.isArray(data) && data.length>0){
+      MESSAGES = data;
+    } else if(data && Array.isArray(data.values) && data.values.length>0){
+      // in case Google Sheets published format
+      MESSAGES = data.values.flat();
+    } else {
+      console.warn('JSON found but not in expected format. Using fallback messages.');
+    }
+  }catch(e){
+    // fallback remains
+    console.info('No external blessings.json found — using built-in messages.');
   }
 }
 
-document.getElementById('reveal').addEventListener('click', ()=>{
-  const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-});
-document.getElementById('newOne').addEventListener('click', ()=>{
-  const idx = pickRandomIdx(lastIdx); lastIdx = idx; renderItem(idx);
-});
-document.getElementById('last').addEventListener('click', ()=>{ if(lastIdx !== null) renderItem(lastIdx); });
+// Pick and display a random message
+function pickAndShow(){
+  if(!MESSAGES || MESSAGES.length===0) {
+    showMessage("No messages available.");
+    return;
+  }
+  const idx = randInt(MESSAGES.length);
+  showMessage(MESSAGES[idx], idx, MESSAGES.length);
+}
 
-document.getElementById('siteurl').innerText = location.origin + location.pathname.replace(/\/index\.html$/,'');
+// "Another" button behaviour
+document.getElementById('anotherBtn').addEventListener('click', ()=>{
+  pickAndShow();
+  // add small pulse to card
+  const c = document.getElementById('messageCard');
+  c.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}], {duration:280});
+});
+
+// copy URL (useful for NFC testing)
+document.getElementById('shareBtn').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(location.href);
+    const old = document.getElementById('metaText').innerText;
+    document.getElementById('metaText').innerText = 'URL copied to clipboard';
+    setTimeout(()=>document.getElementById('metaText').innerText = old, 1500);
+  }catch(e){ alert('Could not copy URL'); }
+});
+
+// generate sparkles (positions + animation delays randomized)
+function makeSparkles(count=20){
+  const wrap = document.getElementById('sparkles');
+  wrap.innerHTML = '';
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'sparkle ' + (i%3===0 ? 's--big' : (i%2 ? 's--mid' : 's--small'));
+    // random position within the wrap
+    const left = Math.random() * 98;
+    const top = Math.random() * 62; // keep sparkles mainly in upper area
+    s.style.left = left + '%';
+    s.style.top = top + '%';
+    // random animation delay & duration
+    const dur = (3.5 + Math.random()*3).toFixed(2) + 's';
+    const delay = (Math.random()*2).toFixed(2) + 's';
+    s.style.animation = `sparkleFloat ${dur} ease-in-out ${delay} infinite`;
+    // subtle color variations (white, very pale pink, pale lavender)
+    const tone = Math.random();
+    if(tone < 0.28) s.style.background = 'rgba(255,255,255,0.95)';
+    else if(tone < 0.6) s.style.background = 'rgba(255,240,250,0.95)';
+    else s.style.background = 'rgba(245,240,255,0.95)';
+    wrap.appendChild(s);
+  }
+}
+
+// initialize on load
+window.addEventListener('DOMContentLoaded', async ()=>{
+  makeSparkles(18);               // create sparkles
+  await loadMessages();           // try loading external JSON
+  pickAndShow();                  // show one immediately
+});
 </script>
 </body>
 </html>
-
